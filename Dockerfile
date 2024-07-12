@@ -1,11 +1,14 @@
-# Use the official Nginx image as the base image
-FROM nginx:alpine
+# Use the official Python image as the base image
+FROM python:3.9-alpine
 
-# Copy the static website files into the Nginx HTML directory
-COPY . /usr/share/nginx/html
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the static website files into the working directory
+COPY . .
 
 # Expose port 80 to the outside world
 EXPOSE 80
 
-# Start Nginx when the container starts
-CMD ["nginx", "-g", "daemon off;"]
+# Start the Python HTTP server when the container starts
+CMD ["python3", "-m", "http.server", "80"]
